@@ -17,7 +17,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Gane
+namespace TikTakToe
+
 {
     public partial class Form1 : Form
     {
