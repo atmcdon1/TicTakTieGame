@@ -4,15 +4,23 @@
 /// 2/7/2024 Made grid of player 1 or 2
 /// 2/7/2024 winCheck to see if the player got three in a row.
 /// 2/7/2024 Reset event-handler developed resets everything.
-/// 2/8/2024
+/// 2/8/2024 took appart button click and make executBtn a seperate method
+/// 2/8/2024 made tieCheck()
+/// 2/8/2024 made pickRandomBtn() this plays as the computer when called
+/// 2/8/2024 The buttons will become de-enabled when pressed.
 
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,6 +34,8 @@ namespace TikTakToe
         int playerTurn = 1;
         
         int[,] grid = new int[3, 3];
+
+        int playCounts = 0;
 
         public Form1()
         {
@@ -58,36 +68,19 @@ namespace TikTakToe
             int row = Grid.GetRow(btn);
             int col = Grid.GetColumn(btn);
 
-            switch (playerTurn) 
+            executBtn(btn, row, col);
+
+            //This plays the computer to turn off just Comment out
+            if (playerTurn == 2)
             {
-                case 1:
-                    btn.Text = "X";
-                    grid[row, col] = playerTurn;
-                    if (true == winCheck(playerTurn))
-                    { displayBox.Text = $"Player {playerTurn} Won!"; }
-
-                    playerTurn = 2;
-
-                    break;
-
-                case 2:
-                    btn.Text = "O";
-                    grid[row, col] = playerTurn;
-                    if (true == winCheck(playerTurn))
-                    { displayBox.Text = $"Player {playerTurn} Won!"; }
-
-                    playerTurn = 1;
-                    break;
+                pickRandomBtn();
             }
+            
             // gridArray [[1,2,3],
             //            [4,5,6],
             //            [7,8,9]]
-            //get the cell row and col in the grid
-            //put them in array
-            ///asdsadas
-            
-            
-            
+
+
 
             //shows where it is in the array
             //MessageBox.Show(String.Join(" ", grid.Cast<int>()));
@@ -112,16 +105,211 @@ namespace TikTakToe
 
                 MessageBox.Show(gridString, "Grid State"); // Display the grid in a message box
             }
-
-
-            //THis is a test
-
-            
-
-             
         }
 
-        //this method will check if there is a THREE in a row.
+
+        //This method will:Check to see whos turn it is and update the button text 
+        //and check if there is a tie. It will assign the player a 1 or 2 in grid array
+        //                  
+        //Paras: btn, row of button cell, col of button cell
+        private void executBtn(Button btn ,int row, int col)
+        {
+            switch (playerTurn)
+            {
+                case 1:
+                    btn.Text = "X";
+                    playCounts++;
+
+                    grid[row, col] = playerTurn;
+                    btn.Enabled = false;
+                    if (true == winCheck(playerTurn))
+                    { displayBox.Text = $"Player {playerTurn} Won!";
+                        playerTurn = 0;
+                        break;
+                    }
+
+                    if (tieCheck() == true)
+                    {
+                        displayBox.Text = $"The Game was Tied";
+                        playerTurn = 0;
+                        break;
+                    }
+
+                    playerTurn = 2;
+
+
+                    break;
+
+                case 2:
+                    btn.Text = "O";
+                    playCounts++;
+                    grid[row, col] = playerTurn;
+                    btn.Enabled = false;
+                    
+                    if (true == winCheck(playerTurn))
+                    { /*displayBox.Text = $"Player {playerTurn} Won!";*/
+                        displayBox.Text = $"The Computer Won!";
+                        playerTurn = 0;
+                        break;
+                    }
+                    if (tieCheck() == true)
+                    {
+                        displayBox.Text = $"The Game was Tied";
+                        playerTurn = 0;
+                        break;
+                    }
+
+                    playerTurn = 1;
+                    displayBox.Text = $"X's Turn";
+                    break;
+
+            }
+        }
+
+
+        // 
+        // 
+        // Pick a random btn on the board. Acts as the computer.
+        public void pickRandomBtn()
+        {
+            bool foundEmptyBtn = false;
+            while (foundEmptyBtn ==false)
+            {
+                //pick a number between 0 and 2 
+                Random random = new Random();
+                int randomBtn = random.Next(1, 9);
+                switch (randomBtn)
+                {
+                    case 1: 
+                        int row = Grid.GetRow(gridBtn1);
+                        int col = Grid.GetColumn(gridBtn1);
+                        if (grid[row,col] == 0)
+                        {
+                            grid[row,col] = 2;
+                            executBtn(gridBtn1, row, col);
+
+                            foundEmptyBtn = true;
+                        }
+                        break;
+
+                    case 2:
+                        row = Grid.GetRow(gridBtn2);
+                        col = Grid.GetColumn(gridBtn2);
+                        if (grid[row, col] == 0)
+                        {
+                            grid[row, col] = 2;
+                            executBtn(gridBtn2, row, col);
+
+                            foundEmptyBtn = true;
+                        }
+                        break;
+                    case 3:
+                        row = Grid.GetRow(gridBtn3);
+                        col = Grid.GetColumn(gridBtn3);
+                        if (grid[row, col] == 0)
+                        {
+                            grid[row, col] = 2;
+                            executBtn(gridBtn3, row, col);
+
+                            foundEmptyBtn = true;
+                        }
+                        break;
+                    case 4:
+                        row = Grid.GetRow(gridBtn4);
+                        col = Grid.GetColumn(gridBtn4);
+                        if (grid[row, col] == 0)
+                        {
+                            grid[row, col] = 2;
+                            executBtn(gridBtn4, row, col);
+
+                            foundEmptyBtn = true;
+                        }
+                        break;
+                    case 5:
+                        row = Grid.GetRow(gridBtn5);
+                        col = Grid.GetColumn(gridBtn5);
+                        if (grid[row, col] == 0)
+                        {
+                            grid[row, col] = 2;
+                            executBtn(gridBtn5, row, col);
+
+                            foundEmptyBtn = true;
+                        }
+                        break;
+                    case 6:
+                        row = Grid.GetRow(gridBtn6);
+                        col = Grid.GetColumn(gridBtn6);
+                        if (grid[row, col] == 0)
+                        {
+                            grid[row, col] = 2;
+                            executBtn(gridBtn6, row, col);
+
+                            foundEmptyBtn = true;
+                        }
+                        break;
+                    case 7:
+                        row = Grid.GetRow(gridBtn7);
+                        col = Grid.GetColumn(gridBtn7);
+                        if (grid[row, col] == 0)
+                        {
+                            grid[row, col] = 2;
+                            executBtn(gridBtn7, row, col);
+
+                            foundEmptyBtn = true;
+                        }
+                        break;
+                    case 8:
+                        row = Grid.GetRow(gridBtn8);
+                        col = Grid.GetColumn(gridBtn8);
+                        if (grid[row, col] == 0)
+                        {
+                            grid[row, col] = 2;
+                            executBtn(gridBtn8, row, col);
+
+                            foundEmptyBtn = true;
+                        }
+                        break;
+                    case 9:
+                        row = Grid.GetRow(gridBtn9);
+                        col = Grid.GetColumn(gridBtn9);
+                        if (grid[row, col] == 0)
+                        {
+                            grid[row, col] = 2;
+                            executBtn(gridBtn9, row, col);
+
+                            foundEmptyBtn = true;
+                        }
+                        break;
+                     default: 
+                        displayBox.Text = "There is an error in the pickRandomNum() Switch";
+                        break;
+                }
+            }
+                
+
+            
+            
+        }
+
+
+
+
+        //This method will check how many plays there have been
+        //if there is 9 then it will be a tie.
+        private bool tieCheck()
+        {
+            if (playCounts >= 9 && winCheck(playerTurn) == false)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+            //this method will check if there is a THREE in a row.
         private bool winCheck(int playerTurn)
         {
             //grid[ cols rows,]
@@ -174,15 +362,25 @@ namespace TikTakToe
         {
             grid = new int[3, 3];
             gridBtn1.Text = "";
+            gridBtn1.Enabled = true;
             gridBtn2.Text = "";
+            gridBtn2.Enabled = true;
             gridBtn3.Text = "";
+            gridBtn3.Enabled = true;
             gridBtn4.Text = "";
+            gridBtn4.Enabled = true;
             gridBtn5.Text = "";
+            gridBtn5.Enabled = true;
             gridBtn6.Text = "";
+            gridBtn6.Enabled = true;
             gridBtn7.Text = "";
+            gridBtn7.Enabled = true;
             gridBtn8.Text = "";
+            gridBtn8.Enabled = true;
             gridBtn9.Text = "";
+            gridBtn9.Enabled = true;
             playerTurn = 2;
+            playCounts = 0;
         }
 
         private void label6_Click(object sender, EventArgs e)
