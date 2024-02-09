@@ -36,22 +36,22 @@
             this.gridBtn6 = new System.Windows.Forms.Button();
             this.gridBtn7 = new System.Windows.Forms.Button();
             this.gridBtn4 = new System.Windows.Forms.Button();
-            this.gridBtn8 = new System.Windows.Forms.Button();
             this.gridBtn9 = new System.Windows.Forms.Button();
+            this.gridBtn8 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
+            this.PlayerTies = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.displayBox = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.P2WinsLabel = new System.Windows.Forms.Label();
+            this.P1WinsLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.Player2Label = new System.Windows.Forms.Label();
             this.playerInputName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.player1 = new System.Windows.Forms.Label();
+            this.Player1Label = new System.Windows.Forms.Label();
             this.restartBtn = new System.Windows.Forms.Button();
             this.startBtn = new System.Windows.Forms.Button();
             this.Grid.SuspendLayout();
@@ -169,18 +169,6 @@
             this.gridBtn4.UseVisualStyleBackColor = true;
             this.gridBtn4.Click += new System.EventHandler(this.gridBtn_Click);
             // 
-            // gridBtn8
-            // 
-            this.gridBtn8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridBtn8.Location = new System.Drawing.Point(88, 171);
-            this.gridBtn8.Name = "gridBtn8";
-            this.gridBtn8.Size = new System.Drawing.Size(79, 78);
-            this.gridBtn8.TabIndex = 7;
-            this.gridBtn8.UseVisualStyleBackColor = true;
-            this.gridBtn8.Click += new System.EventHandler(this.gridBtn_Click);
-            // 
             // gridBtn9
             // 
             this.gridBtn9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -192,6 +180,18 @@
             this.gridBtn9.TabIndex = 6;
             this.gridBtn9.UseVisualStyleBackColor = true;
             this.gridBtn9.Click += new System.EventHandler(this.gridBtn_Click);
+            // 
+            // gridBtn8
+            // 
+            this.gridBtn8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridBtn8.Location = new System.Drawing.Point(88, 171);
+            this.gridBtn8.Name = "gridBtn8";
+            this.gridBtn8.Size = new System.Drawing.Size(79, 78);
+            this.gridBtn8.TabIndex = 7;
+            this.gridBtn8.UseVisualStyleBackColor = true;
+            this.gridBtn8.Click += new System.EventHandler(this.gridBtn_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -208,18 +208,18 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.PlayerTies);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.displayBox);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.P2WinsLabel);
+            this.panel1.Controls.Add(this.P1WinsLabel);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.Player2Label);
             this.panel1.Controls.Add(this.playerInputName);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.player1);
+            this.panel1.Controls.Add(this.Player1Label);
             this.panel1.Controls.Add(this.restartBtn);
             this.panel1.Controls.Add(this.startBtn);
             this.panel1.Location = new System.Drawing.Point(3, 3);
@@ -227,14 +227,14 @@
             this.panel1.Size = new System.Drawing.Size(190, 246);
             this.panel1.TabIndex = 0;
             // 
-            // label9
+            // PlayerTies
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(81, 87);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(13, 13);
-            this.label9.TabIndex = 14;
-            this.label9.Text = "0";
+            this.PlayerTies.AutoSize = true;
+            this.PlayerTies.Location = new System.Drawing.Point(81, 87);
+            this.PlayerTies.Name = "PlayerTies";
+            this.PlayerTies.Size = new System.Drawing.Size(13, 13);
+            this.PlayerTies.TabIndex = 14;
+            this.PlayerTies.Text = "0";
             // 
             // label8
             // 
@@ -272,23 +272,23 @@
             this.label6.Text = "Game Ties";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
-            // label5
+            // P2WinsLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(126, 55);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(13, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "0";
+            this.P2WinsLabel.AutoSize = true;
+            this.P2WinsLabel.Location = new System.Drawing.Point(126, 55);
+            this.P2WinsLabel.Name = "P2WinsLabel";
+            this.P2WinsLabel.Size = new System.Drawing.Size(13, 13);
+            this.P2WinsLabel.TabIndex = 8;
+            this.P2WinsLabel.Text = "0";
             // 
-            // label4
+            // P1WinsLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(126, 29);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(13, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "0";
+            this.P1WinsLabel.AutoSize = true;
+            this.P1WinsLabel.Location = new System.Drawing.Point(126, 29);
+            this.P1WinsLabel.Name = "P1WinsLabel";
+            this.P1WinsLabel.Size = new System.Drawing.Size(13, 13);
+            this.P1WinsLabel.TabIndex = 7;
+            this.P1WinsLabel.Text = "0";
             // 
             // label3
             // 
@@ -299,14 +299,14 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Wins";
             // 
-            // label2
+            // Player2Label
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Computer ";
+            this.Player2Label.AutoSize = true;
+            this.Player2Label.Location = new System.Drawing.Point(17, 55);
+            this.Player2Label.Name = "Player2Label";
+            this.Player2Label.Size = new System.Drawing.Size(55, 13);
+            this.Player2Label.TabIndex = 5;
+            this.Player2Label.Text = "Computer ";
             // 
             // playerInputName
             // 
@@ -324,14 +324,14 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Input Player Name";
             // 
-            // player1
+            // Player1Label
             // 
-            this.player1.AutoSize = true;
-            this.player1.Location = new System.Drawing.Point(17, 29);
-            this.player1.Name = "player1";
-            this.player1.Size = new System.Drawing.Size(45, 13);
-            this.player1.TabIndex = 2;
-            this.player1.Text = "Player 1";
+            this.Player1Label.AutoSize = true;
+            this.Player1Label.Location = new System.Drawing.Point(17, 29);
+            this.Player1Label.Name = "Player1Label";
+            this.Player1Label.Size = new System.Drawing.Size(45, 13);
+            this.Player1Label.TabIndex = 2;
+            this.Player1Label.Text = "Player 1";
             // 
             // restartBtn
             // 
@@ -351,7 +351,7 @@
             this.startBtn.TabIndex = 0;
             this.startBtn.Text = "Start";
             this.startBtn.UseVisualStyleBackColor = true;
-            this.startBtn.Click += new System.EventHandler(this.button1_Click);
+            this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
             // 
             // Form1
             // 
@@ -387,18 +387,18 @@
         private System.Windows.Forms.Button gridBtn4;
         private System.Windows.Forms.Button gridBtn5;
         private System.Windows.Forms.Button gridBtn6;
-        private System.Windows.Forms.Label player1;
+        private System.Windows.Forms.Label Player1Label;
         private System.Windows.Forms.TextBox playerInputName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label P2WinsLabel;
+        private System.Windows.Forms.Label P1WinsLabel;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Player2Label;
         private System.Windows.Forms.RichTextBox displayBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label PlayerTies;
     }
 }
 

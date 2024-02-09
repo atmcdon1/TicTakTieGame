@@ -37,6 +37,13 @@ namespace TikTakToe
 
         int playCounts = 0;
 
+        int playTiesAmount = 0;
+
+        int player1Wins = 0;
+        int player2Wins = 0;
+
+        string player1name = "player 1";
+
         public Form1()
         {
             InitializeComponent();
@@ -47,9 +54,18 @@ namespace TikTakToe
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void startBtn_Click(object sender, EventArgs e)
         {
+            player1name = playerInputName.Text;
 
+            Player1Label.Text = player1name;
+
+            player1Wins = 0;
+            player2Wins = 0;
+            P1WinsLabel.Text = player1Wins.ToString();
+            P2WinsLabel.Text = player2Wins.ToString();
+
+            restartBtn_Click(sender, e);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -108,12 +124,17 @@ namespace TikTakToe
         }
 
 
-        //This method will:Check to see whos turn it is and update the button text 
+        //This method will: Check to see whos turn it is and update the button text 
         //and check if there is a tie. It will assign the player a 1 or 2 in grid array
         //                  
         //Paras: btn, row of button cell, col of button cell
         private void executBtn(Button btn ,int row, int col)
         {
+
+            if (playerTurn == 0)
+            {
+                playerTurn = 1;
+            }
             switch (playerTurn)
             {
                 case 1:
@@ -123,8 +144,12 @@ namespace TikTakToe
                     grid[row, col] = playerTurn;
                     btn.Enabled = false;
                     if (true == winCheck(playerTurn))
-                    { displayBox.Text = $"Player {playerTurn} Won!";
+                    { displayBox.Text = $"Good Job {player1name} Won!";
+                        player1Wins++;
+                        P1WinsLabel.Text = player1Wins.ToString();
                         playerTurn = 0;
+
+                        //TODO: should grey out rest of buttons
                         break;
                     }
 
@@ -149,6 +174,8 @@ namespace TikTakToe
                     if (true == winCheck(playerTurn))
                     { /*displayBox.Text = $"Player {playerTurn} Won!";*/
                         displayBox.Text = $"The Computer Won!";
+                        player2Wins++;
+                        P2WinsLabel.Text = player2Wins.ToString();
                         playerTurn = 0;
                         break;
                     }
@@ -160,7 +187,7 @@ namespace TikTakToe
                     }
 
                     playerTurn = 1;
-                    displayBox.Text = $"X's Turn";
+                    displayBox.Text = $"{player1name}'s Turn";
                     break;
 
             }
@@ -300,7 +327,10 @@ namespace TikTakToe
         {
             if (playCounts >= 9 && winCheck(playerTurn) == false)
             {
+                playTiesAmount++;
+                PlayerTies.Text = playTiesAmount.ToString();
                 return true;
+                
             }
             else
             {
@@ -379,7 +409,7 @@ namespace TikTakToe
             gridBtn8.Enabled = true;
             gridBtn9.Text = "";
             gridBtn9.Enabled = true;
-            playerTurn = 2;
+            playerTurn = 1;
             playCounts = 0;
         }
 
