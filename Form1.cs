@@ -99,7 +99,7 @@ namespace TikTakToe
 
 
             //shows where it is in the array
-            //MessageBox.Show(String.Join(" ", grid.Cast<int>()));
+            
             //ShowGrid();
             void ShowGrid()
             {
@@ -148,8 +148,8 @@ namespace TikTakToe
                         player1Wins++;
                         P1WinsLabel.Text = player1Wins.ToString();
                         playerTurn = 0;
-
-                        //TODO: should grey out rest of buttons
+                        greyButtonsOut();
+                        
                         break;
                     }
 
@@ -177,6 +177,7 @@ namespace TikTakToe
                         player2Wins++;
                         P2WinsLabel.Text = player2Wins.ToString();
                         playerTurn = 0;
+                        greyButtonsOut();
                         break;
                     }
                     if (tieCheck() == true)
@@ -197,14 +198,19 @@ namespace TikTakToe
         // 
         // 
         // Pick a random btn on the board. Acts as the computer.
+        // uses a switch to pick between 1-9 of the buttons then
+        // pull the row and column data and checks so see if the 
+        // spot has been taken.
         public void pickRandomBtn()
         {
             bool foundEmptyBtn = false;
             while (foundEmptyBtn ==false)
             {
-                //pick a number between 0 and 2 
+                //pick a number between 1 - 9 
                 Random random = new Random();
                 int randomBtn = random.Next(1, 9);
+                
+                //checks grid if spot has been taken.
                 switch (randomBtn)
                 {
                     case 1: 
@@ -322,7 +328,7 @@ namespace TikTakToe
 
 
         //This method will check how many plays there have been
-        //if there is 9 then it will be a tie.
+        //if there is 9 turns played then it will be a tie.
         private bool tieCheck()
         {
             if (playCounts >= 9 && winCheck(playerTurn) == false)
@@ -390,28 +396,35 @@ namespace TikTakToe
         //restarts the first player as X
         private void restartBtn_Click(object sender, EventArgs e)
         {
+
+            greyButtonsOut();
             grid = new int[3, 3];
             gridBtn1.Text = "";
-            gridBtn1.Enabled = true;
             gridBtn2.Text = "";
-            gridBtn2.Enabled = true;
             gridBtn3.Text = "";
-            gridBtn3.Enabled = true;
             gridBtn4.Text = "";
-            gridBtn4.Enabled = true;
             gridBtn5.Text = "";
-            gridBtn5.Enabled = true;
             gridBtn6.Text = "";
-            gridBtn6.Enabled = true;
             gridBtn7.Text = "";
-            gridBtn7.Enabled = true;
             gridBtn8.Text = "";
-            gridBtn8.Enabled = true;
             gridBtn9.Text = "";
-            gridBtn9.Enabled = true;
             playerTurn = 1;
             playCounts = 0;
         }
+
+        private void greyButtonsOut()
+        {
+            gridBtn1.Enabled = true;
+            gridBtn2.Enabled = true;
+            gridBtn3.Enabled = true;
+            gridBtn4.Enabled = true;
+            gridBtn5.Enabled = true;
+            gridBtn6.Enabled = true;
+            gridBtn7.Enabled = true;
+            gridBtn8.Enabled = true;
+            gridBtn9.Enabled = true;
+        }
+
 
         private void label6_Click(object sender, EventArgs e)
         {
