@@ -8,6 +8,7 @@
 /// 2/8/2024 made tieCheck()
 /// 2/8/2024 made pickRandomBtn() this plays as the computer when called
 /// 2/8/2024 The buttons will become de-enabled when pressed.
+/// 2/10/2024 updated start button logic
 
 
 using System;
@@ -47,24 +48,32 @@ namespace TikTakToe
         public Form1()
         {
             InitializeComponent();
+            greyButtonsOut(false);
         }
 
         private void Grid_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
+        //start button
+        //When the game is started, the user can not play till pressing the start buttom
+        //This will input the player name into the stats
+        // will also enable the buttons
         private void startBtn_Click(object sender, EventArgs e)
         {
             player1name = playerInputName.Text;
 
             Player1Label.Text = player1name;
 
+            startBtn.Enabled = false;
+            greyButtonsOut(true);
+
+
             player1Wins = 0;
             player2Wins = 0;
             P1WinsLabel.Text = player1Wins.ToString();
             P2WinsLabel.Text = player2Wins.ToString();
-
+            displayBox.Text = $"{player1name}'s Turn";
             restartBtn_Click(sender, e);
         }
 
@@ -73,6 +82,8 @@ namespace TikTakToe
 
         }
 
+        // when a grid button is pressed for the player to play this will start.
+        // This will 
         private void gridBtn_Click(object sender, EventArgs e)
         {
             //when clicked make a X or a O depending if player turn 1 or zero
@@ -98,7 +109,8 @@ namespace TikTakToe
 
 
 
-            //shows where it is in the array
+            //shows where it is in the array in a message box 
+            //FOR TESTING
             
             //ShowGrid();
             void ShowGrid()
@@ -148,7 +160,7 @@ namespace TikTakToe
                         player1Wins++;
                         P1WinsLabel.Text = player1Wins.ToString();
                         playerTurn = 0;
-                        greyButtonsOut();
+                        greyButtonsOut(false);
                         
                         break;
                     }
@@ -177,7 +189,7 @@ namespace TikTakToe
                         player2Wins++;
                         P2WinsLabel.Text = player2Wins.ToString();
                         playerTurn = 0;
-                        greyButtonsOut();
+                        greyButtonsOut(false);
                         break;
                     }
                     if (tieCheck() == true)
@@ -397,7 +409,7 @@ namespace TikTakToe
         private void restartBtn_Click(object sender, EventArgs e)
         {
 
-            greyButtonsOut();
+            greyButtonsOut(true);
             grid = new int[3, 3];
             gridBtn1.Text = "";
             gridBtn2.Text = "";
@@ -410,19 +422,21 @@ namespace TikTakToe
             gridBtn9.Text = "";
             playerTurn = 1;
             playCounts = 0;
+            displayBox.Text = $"{player1name}'s Turn";
         }
 
-        private void greyButtonsOut()
+        private void greyButtonsOut(bool enable)
         {
-            gridBtn1.Enabled = true;
-            gridBtn2.Enabled = true;
-            gridBtn3.Enabled = true;
-            gridBtn4.Enabled = true;
-            gridBtn5.Enabled = true;
-            gridBtn6.Enabled = true;
-            gridBtn7.Enabled = true;
-            gridBtn8.Enabled = true;
-            gridBtn9.Enabled = true;
+
+            gridBtn1.Enabled = enable;
+            gridBtn2.Enabled = enable;
+            gridBtn3.Enabled = enable;
+            gridBtn4.Enabled = enable;
+            gridBtn5.Enabled = enable;
+            gridBtn6.Enabled = enable;
+            gridBtn7.Enabled = enable;
+            gridBtn8.Enabled = enable;
+            gridBtn9.Enabled = enable;
         }
 
 

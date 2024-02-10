@@ -260,7 +260,7 @@
             this.displayBox.Name = "displayBox";
             this.displayBox.Size = new System.Drawing.Size(157, 28);
             this.displayBox.TabIndex = 11;
-            this.displayBox.Text = "X goes first ";
+            this.displayBox.Text = "Press start to Play";
             // 
             // label6
             // 
@@ -314,6 +314,7 @@
             this.playerInputName.Name = "playerInputName";
             this.playerInputName.Size = new System.Drawing.Size(100, 20);
             this.playerInputName.TabIndex = 4;
+            this.playerInputName.Text = "Player 1";
             // 
             // label1
             // 
