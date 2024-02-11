@@ -9,7 +9,8 @@
 /// 2/8/2024 made pickRandomBtn() this plays as the computer when called
 /// 2/8/2024 The buttons will become de-enabled when pressed.
 /// 2/10/2024 updated start button logic
-
+/// 2/10/2024 Event handling update for start button reset button NOW new game
+/// 2/10/2024 Event handling for FULL reset button.
 
 using System;
 using System.Collections.Generic;
@@ -25,15 +26,19 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+///
+/// This .cs file will handle all exceptions and also compute all logic for the 
+/// Tic Tak Toe game
+///
+///
 namespace TikTakToe
 
 {
     public partial class Form1 : Form
     {
 
-        int playerTurn = 1;
-        
+        int playerTurn = 0;
+
         int[,] grid = new int[3, 3];
 
         int playCounts = 0;
@@ -64,17 +69,22 @@ namespace TikTakToe
             player1name = playerInputName.Text;
 
             Player1Label.Text = player1name;
+            string player = player1name;
 
             startBtn.Enabled = false;
             greyButtonsOut(true);
 
+            Random random = new Random();
+            playerTurn = random.Next(1, 3);
+            if (playerTurn == 2)
+            {
+                player = "Computer";
+                pickRandomBtn();
+            }
 
-            player1Wins = 0;
-            player2Wins = 0;
-            P1WinsLabel.Text = player1Wins.ToString();
-            P2WinsLabel.Text = player2Wins.ToString();
-            displayBox.Text = $"{player1name}'s Turn";
-            restartBtn_Click(sender, e);
+
+            displayBox.Text = $"{player}'s Turn";
+            //restartBtn_Click(sender, e);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -83,14 +93,18 @@ namespace TikTakToe
         }
 
         // when a grid button is pressed for the player to play this will start.
-        // This will 
+        // This will invoke a the executeBtn.
+        // if the player is a computer then it will be player turn 2
+        // and will get a random available button and then invoke executeBtn
+        // 
         private void gridBtn_Click(object sender, EventArgs e)
         {
-            //when clicked make a X or a O depending if player turn 1 or zero
-            //playerTurn switch opposite to zero.
-            // 
-            Button btn = (Button)sender;
+            // what the grid looks like
+            // gridArray [[1,2,3],
+            //            [4,5,6],
+            //            [7,8,9]]
 
+            Button btn = (Button)sender;
 
             int row = Grid.GetRow(btn);
             int col = Grid.GetColumn(btn);
@@ -102,37 +116,10 @@ namespace TikTakToe
             {
                 pickRandomBtn();
             }
-            
-            // gridArray [[1,2,3],
-            //            [4,5,6],
-            //            [7,8,9]]
-
-
 
             //shows where it is in the array in a message box 
             //FOR TESTING
-            
             //ShowGrid();
-            void ShowGrid()
-            {
-                string gridString = "gridArray [\n";
-                for (int i = 0; i < grid.GetLength(0); i++) // Iterate over rows
-                {
-                    gridString += "            [";
-                    for (int j = 0; j < grid.GetLength(1); j++) // Iterate over columns
-                    {
-                        gridString += grid[i, j].ToString();
-                        if (j < grid.GetLength(1) - 1)
-                        {
-                            gridString += ", ";
-                        }
-                    }
-                    gridString += "]" + (i < grid.GetLength(0) - 1 ? ",\n" : "\n");
-                }
-                gridString += "          ]";
-
-                MessageBox.Show(gridString, "Grid State"); // Display the grid in a message box
-            }
         }
 
 
@@ -140,7 +127,7 @@ namespace TikTakToe
         //and check if there is a tie. It will assign the player a 1 or 2 in grid array
         //                  
         //Paras: btn, row of button cell, col of button cell
-        private void executBtn(Button btn ,int row, int col)
+        private void executBtn(Button btn, int row, int col)
         {
 
             if (playerTurn == 0)
@@ -156,12 +143,13 @@ namespace TikTakToe
                     grid[row, col] = playerTurn;
                     btn.Enabled = false;
                     if (true == winCheck(playerTurn))
-                    { displayBox.Text = $"Good Job {player1name} Won!";
+                    {
+                        displayBox.Text = $"Good Job {player1name} Won!";
                         player1Wins++;
                         P1WinsLabel.Text = player1Wins.ToString();
                         playerTurn = 0;
                         greyButtonsOut(false);
-                        
+
                         break;
                     }
 
@@ -182,7 +170,7 @@ namespace TikTakToe
                     playCounts++;
                     grid[row, col] = playerTurn;
                     btn.Enabled = false;
-                    
+
                     if (true == winCheck(playerTurn))
                     { /*displayBox.Text = $"Player {playerTurn} Won!";*/
                         displayBox.Text = $"The Computer Won!";
@@ -206,31 +194,28 @@ namespace TikTakToe
             }
         }
 
-
-        // 
-        // 
         // Pick a random btn on the board. Acts as the computer.
         // uses a switch to pick between 1-9 of the buttons then
         // pull the row and column data and checks so see if the 
         // spot has been taken.
-        public void pickRandomBtn()
+        private void pickRandomBtn()
         {
             bool foundEmptyBtn = false;
-            while (foundEmptyBtn ==false)
+            while (foundEmptyBtn == false)
             {
                 //pick a number between 1 - 9 
                 Random random = new Random();
-                int randomBtn = random.Next(1, 9);
-                
+                int randomBtn = random.Next(1, 10);
+
                 //checks grid if spot has been taken.
                 switch (randomBtn)
                 {
-                    case 1: 
+                    case 1:
                         int row = Grid.GetRow(gridBtn1);
                         int col = Grid.GetColumn(gridBtn1);
-                        if (grid[row,col] == 0)
+                        if (grid[row, col] == 0)
                         {
-                            grid[row,col] = 2;
+                            grid[row, col] = 2;
                             executBtn(gridBtn1, row, col);
 
                             foundEmptyBtn = true;
@@ -325,19 +310,12 @@ namespace TikTakToe
                             foundEmptyBtn = true;
                         }
                         break;
-                     default: 
+                    default:
                         displayBox.Text = "There is an error in the pickRandomNum() Switch";
                         break;
                 }
             }
-                
-
-            
-            
         }
-
-
-
 
         //This method will check how many plays there have been
         //if there is 9 turns played then it will be a tie.
@@ -348,7 +326,7 @@ namespace TikTakToe
                 playTiesAmount++;
                 PlayerTies.Text = playTiesAmount.ToString();
                 return true;
-                
+
             }
             else
             {
@@ -357,7 +335,7 @@ namespace TikTakToe
         }
 
 
-            //this method will check if there is a THREE in a row.
+        //this method will check if there is a THREE in a row.
         private bool winCheck(int playerTurn)
         {
             //grid[ cols rows,]
@@ -398,14 +376,16 @@ namespace TikTakToe
             }
 
             else
-                
-            return false;
-            
+
+                return false;
+
         }
 
-        //This resets teh grid to all zeros
+        //This resets the grid to all zeros
         //resets all the grid Buttons text
-        //restarts the first player as X
+        //will not reset player name 
+        //or amount of game play wins/tie
+        //acts as NEW GAME
         private void restartBtn_Click(object sender, EventArgs e)
         {
 
@@ -420,11 +400,22 @@ namespace TikTakToe
             gridBtn7.Text = "";
             gridBtn8.Text = "";
             gridBtn9.Text = "";
-            playerTurn = 1;
+
             playCounts = 0;
-            displayBox.Text = $"{player1name}'s Turn";
+
+            string player = "Player 1";
+            Random random = new Random();
+            playerTurn = random.Next(1, 3);
+            if (playerTurn == 2)
+            {
+                player = "Computer";
+                pickRandomBtn();
+            }
+            displayBox.Text = $"{player}'s Turn";
         }
 
+
+        //Will grey out grid buttons
         private void greyButtonsOut(bool enable)
         {
 
@@ -439,10 +430,50 @@ namespace TikTakToe
             gridBtn9.Enabled = enable;
         }
 
-
-        private void label6_Click(object sender, EventArgs e)
+        //This will fully reset the game to init state.
+        private void fullResetBtn_Click(object sender, EventArgs e)
         {
+            player1Wins = 0;
+            player2Wins = 0;
+            P1WinsLabel.Text = player1Wins.ToString();
+            P2WinsLabel.Text = player2Wins.ToString();
 
+
+            Player1Label.Text = "Player 1";
+
+            playerInputName.Text = "Player 1";
+
+            startBtn.Enabled = true;
+            greyButtonsOut(false);
+            playCounts = 0;
+
+            restartBtn_Click(sender, e);
+            displayBox.Text = $"Press start to Play";
+
+        }
+        //This will display the grid and player number in a message box
+        private void ShowGrid()
+        {
+            // Iterate over rows
+            string gridString = "gridArray [\n";
+            for (int i = 0; i < grid.GetLength(0); i++)
+            {
+                // Iterate over columns
+                gridString += "            [";
+                for (int j = 0; j < grid.GetLength(1); j++)
+                {
+                    gridString += grid[i, j].ToString();
+                    if (j < grid.GetLength(1) - 1)
+                    {
+                        gridString += ", ";
+                    }
+                }
+                gridString += "]" + (i < grid.GetLength(0) - 1 ? ",\n" : "\n");
+            }
+            gridString += "          ]";
+
+            // Display the grid in a message box
+            MessageBox.Show(gridString, "Grid State");
         }
     }
 

@@ -54,6 +54,7 @@
             this.Player1Label = new System.Windows.Forms.Label();
             this.restartBtn = new System.Windows.Forms.Button();
             this.startBtn = new System.Windows.Forms.Button();
+            this.fullResetBtn = new System.Windows.Forms.Button();
             this.Grid.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -208,6 +209,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.fullResetBtn);
             this.panel1.Controls.Add(this.PlayerTies);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
@@ -270,7 +272,7 @@
             this.label6.Size = new System.Drawing.Size(58, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Game Ties";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
+            
             // 
             // P2WinsLabel
             // 
@@ -336,11 +338,11 @@
             // 
             // restartBtn
             // 
-            this.restartBtn.Location = new System.Drawing.Point(94, 199);
+            this.restartBtn.Location = new System.Drawing.Point(71, 199);
             this.restartBtn.Name = "restartBtn";
-            this.restartBtn.Size = new System.Drawing.Size(71, 41);
+            this.restartBtn.Size = new System.Drawing.Size(46, 41);
             this.restartBtn.TabIndex = 1;
-            this.restartBtn.Text = "Restart";
+            this.restartBtn.Text = "New Game";
             this.restartBtn.UseVisualStyleBackColor = true;
             this.restartBtn.Click += new System.EventHandler(this.restartBtn_Click);
             // 
@@ -348,11 +350,21 @@
             // 
             this.startBtn.Location = new System.Drawing.Point(17, 199);
             this.startBtn.Name = "startBtn";
-            this.startBtn.Size = new System.Drawing.Size(71, 41);
+            this.startBtn.Size = new System.Drawing.Size(45, 41);
             this.startBtn.TabIndex = 0;
             this.startBtn.Text = "Start";
             this.startBtn.UseVisualStyleBackColor = true;
             this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
+            // 
+            // fullResetBtn
+            // 
+            this.fullResetBtn.Location = new System.Drawing.Point(129, 200);
+            this.fullResetBtn.Name = "fullResetBtn";
+            this.fullResetBtn.Size = new System.Drawing.Size(44, 37);
+            this.fullResetBtn.TabIndex = 15;
+            this.fullResetBtn.Text = "Reset";
+            this.fullResetBtn.UseVisualStyleBackColor = true;
+            this.fullResetBtn.Click += new System.EventHandler(this.fullResetBtn_Click);
             // 
             // Form1
             // 
@@ -363,7 +375,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.MinimumSize = new System.Drawing.Size(467, 291);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Tik Tac Toe";
             this.Grid.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -400,6 +412,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label PlayerTies;
+        private System.Windows.Forms.Button fullResetBtn;
     }
 }
 
